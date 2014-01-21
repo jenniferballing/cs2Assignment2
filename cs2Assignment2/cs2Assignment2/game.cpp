@@ -89,13 +89,14 @@ game::game(void)
 		cin>>columnChoice;
 		
 		//Check for input out of bounds
-		while(columnChoice<0 || columnChoice>colSize)
+		while(columnChoice<1 || columnChoice>colSize)
 		{
 			cout<<"You have chosen an invalid number. Into which *valid* column would you like to drop your game piece?\n\n";
 			cin>>columnChoice;
 			cout<<endl;		
 		}
-		
+		columnChoice--;
+
 		//Check for full column
 		while (gameBoard[0][columnChoice]=='x'|| gameBoard[0][columnChoice]=='o')
 		{
@@ -104,7 +105,7 @@ game::game(void)
 		}
 		
 		//Check availablity through the rows of columnChoice starting at the bottom
-		for(i=rowSize; i>=0; i--)
+		for(i=rowSize-1; i>=0; i--)
 		{
 			if(gameBoard[i][columnChoice]!='x' && gameBoard[i][columnChoice]!='o')
 			{
@@ -121,6 +122,8 @@ game::game(void)
 		int i=0;
 		srand(static_cast<unsigned int>(time(NULL)));
 		
+		cout<<"\nComputer Move:  \n\n";
+
 		//Random number for computer choice
 		computerChoice= rand() % colSize;
 
@@ -131,7 +134,7 @@ game::game(void)
 		}
 
 		//Assign computerChoice to board starting at the bottom
-		for(i=rowSize; i>=0; i--)
+		for(i=rowSize-1; i>=0; i--)
 		{
 			if(gameBoard[i][computerChoice]!='x' && gameBoard[i][computerChoice]!='o')
 			{
@@ -140,7 +143,51 @@ game::game(void)
 			}
 		}
 	}
-	//bool game::checkRowWin (char ** gameBoard, int size);
+	bool game::checkRowWin (char ** gameBoard, int size)
+	{
+		int rowSize=size+EXTRA_ROWS;
+		int colSize=size+EXTRA_COLS;
+		int i=0;
+		int j=0;
+		int k=0;
+		int xWin=0;
+		int oWin=0;
+		for(i=0; i<rowSize-1; i++)
+		{
+			for(j=0; j<colSize-1; j++)
+			{
+				if(gameBoard[i][j]=='x')
+				{
+					if(gameBoard[i][j+(size-1)]<colSize-1)
+					{
+						for(k=0; k<size; k++)
+						{
+							if(gameBoard[i][j+k]=='x' && gameBoard[i][j+(k+1)]=='x')
+							{
+								cout<<"The computer wins!\n";
+								return true;
+							}
+						}
+					}
+				}
+				else if(gameBoard[i][j]=='o')
+				{
+					if(gameBoard[i][j+(size-1)]<colSize-1)
+					{
+						for(k=0; k<size; k++)
+						{
+							if(gameBoard[i][j+k]=='o' && gameBoard[i][j+(k+1)]=='o')
+							{
+								cout<<"The player wins!\n";
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
 	//bool game::checkColumnWin (char ** gameBoard, int size);
 	//bool game::checkRightDiagonalWin (char ** gameBoard, int size);
 	//bool game::checkLeftDiagonalWin (char ** gameBoard, int size);
