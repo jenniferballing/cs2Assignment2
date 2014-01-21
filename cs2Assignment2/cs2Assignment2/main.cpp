@@ -11,12 +11,14 @@ void main ()
 
 	connectionSize=g1.getConnectionSize();
 	board=g1.buildGameBoard(connectionSize);
+	g1.displayBoard(board, connectionSize);
 	while (!winner)
 	{
-		g1.displayBoard(board, connectionSize);
 		g1.playerMove(board, connectionSize);
 		g1.displayBoard(board, connectionSize);
+		winner=g1.checkRowWin(board, connectionSize);
 		g1.computerMove(board, connectionSize);
+		g1.displayBoard(board, connectionSize);
 		winner=g1.checkRowWin(board, connectionSize);
 	}
 	cin>>input;

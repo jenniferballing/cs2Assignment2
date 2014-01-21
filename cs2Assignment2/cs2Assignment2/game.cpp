@@ -150,40 +150,37 @@ game::game(void)
 		int i=0;
 		int j=0;
 		int k=0;
-		int xWin=0;
-		int oWin=0;
+
+		//Check through the rows and columns
 		for(i=0; i<rowSize-1; i++)
 		{
 			for(j=0; j<colSize-1; j++)
 			{
-				if(gameBoard[i][j]=='x')
+				//Check that the element holds a game piece
+				if(gameBoard[i][j]=='x'|| gameBoard[i][j]=='o')
 				{
+					//Check that the range in on the board
 					if(gameBoard[i][j+(size-1)]<colSize-1)
+				{
+					//check for the right number in a row
+					for(k=0; k<size; k++)
 					{
-						for(k=0; k<size; k++)
+						if(gameBoard[i+k][j]==gameBoard[i][j])
 						{
-							if(gameBoard[i][j+k]=='x' && gameBoard[i][j+(k+1)]=='x')
+							if(gameBoard[i][j]=='x')
 							{
-								cout<<"The computer wins!\n";
+								cout<<"Computer Wins!";
+								return true;
+							}
+							else
+							{
+								cout<<"Player Wins!";
 								return true;
 							}
 						}
 					}
 				}
-				else if(gameBoard[i][j]=='o')
-				{
-					if(gameBoard[i][j+(size-1)]<colSize-1)
-					{
-						for(k=0; k<size; k++)
-						{
-							if(gameBoard[i][j+k]=='o' && gameBoard[i][j+(k+1)]=='o')
-							{
-								cout<<"The player wins!\n";
-								return true;
-							}
-						}
-					}
-				}
+			}
 			}
 		}
 		return false;
