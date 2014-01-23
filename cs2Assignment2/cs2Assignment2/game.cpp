@@ -160,9 +160,9 @@ game::game(void)
 		bool win=false;
 		bool row=false, col=false, rd=false, ld=false;
 
-		for(i=0; i<colSize-1; i++)
+		for(i=0; i<rowSize-1; i++)
 		{
-			for(j=0; j<rowSize-1; j++)
+			for(j=0; j<colSize-1; j++)
 			{
 				row=checkRowWin (gameBoard, size, i, j);
 				col=checkColumnWin (gameBoard, size, i, j);
@@ -299,7 +299,6 @@ game::game(void)
 	}	
 	bool game::checkLeftDiagonalWin (char ** gameBoard, int size, int x, int y)
 	{
-		
 		int i=0;
 		int j=0;
 		int rowSize=size+EXTRA_ROWS;
@@ -309,21 +308,22 @@ game::game(void)
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
 			//Bounds check
-			if(x-size>=rowSize && y-size>=colSize)
+			if(x+size<=rowSize && y-size>=colSize)
 			{
-				i= size;
+				j=1;
+
 				//Check for "size" in a row
-				while(gameBoard[x][y]==gameBoard[x-i][y-i])
+				while(gameBoard[x][y]==gameBoard[x+j][y-j])
 				{
-					i--;
+					j++;
 				}
 				//Not enough in a row
-				if(i>1)
+				if(j<size)
 				{
 					return false;
 				}
 				//winner
-				else if(i==1)
+				else if(j==size)
 				{
 					return true;
 				}
