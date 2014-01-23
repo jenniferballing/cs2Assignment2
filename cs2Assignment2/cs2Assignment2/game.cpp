@@ -23,7 +23,7 @@ game::game(void)
 	}
 	char** game::buildGameBoard (int size)
 	{
-		int i=0;
+		int i=0, j=0, k=0;
 		int rowSize=size+EXTRA_ROWS;
 		int colSize=size+EXTRA_COLS;
 		
@@ -34,6 +34,13 @@ game::game(void)
 		for(i=0; i<colSize; i++)
 		{
 			gameBoard[i]= new char [colSize];
+		}
+		for(j=0; j<=rowSize; j++)
+		{
+			for(k=0; k<=colSize; k++)
+			{
+				gameBoard[j][k]=' ';
+			}
 		}
 		return gameBoard;
 	}
@@ -189,14 +196,21 @@ game::game(void)
 		//Horizontal check
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
+
 			if(y+size<=colSize)
 			{
-				for(j=1; j<size; j++)
+				j= 1;
+				while(gameBoard[x][y]==gameBoard[x][y+j])
 				{
-					if(gameBoard[x][y]==gameBoard[x][y+j] )//&& gameBoard[x][y]==gameBoard[x][y+j])
-					{
-						return true;
-					}
+					j++;
+				}
+				if(j<size)
+				{
+					return false;
+				}
+				else 
+				{
+					return true;
 				}
 			}
 			//Vertical check
