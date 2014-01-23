@@ -18,11 +18,11 @@ public:
 	void displayBoard(char ** gameBoard, int size);
 	void playerMove(char ** gameBoard, int size);
 	void computerMove (char ** gameBoard, int size);
-	bool checkRowWin (char ** gameBoard, int size);
-	bool checker(char ** gameBoard, int size, int x, int y);
-	//bool checkColumnWin (char ** gameBoard, int size);
-	//bool checkRightDiagonalWin (char ** gameBoard, int size);
-	//bool checkLeftDiagonalWin (char ** gameBoard, int size);
+	bool checkRowWin (char ** gameBoard, int size, int x, int y);
+	bool checker(char ** gameBoard, int size);
+	bool checkColumnWin (char ** gameBoard, int size, int x, int y);
+	bool checkRightDiagonalWin (char ** gameBoard, int size, int x, int y);
+	bool checkLeftDiagonalWin (char ** gameBoard, int size, int x, int y);
 	//bool checkTie (char ** gameBoard, int size);
 	//void resetGameBoard (char ** gameBoard, int size);
 	~game(void);

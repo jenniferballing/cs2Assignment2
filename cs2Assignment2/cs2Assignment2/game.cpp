@@ -150,20 +150,28 @@ game::game(void)
 			}
 		}
 	}
-	bool game::checkRowWin (char ** gameBoard, int size)
+	bool game::checker(char ** gameBoard, int size)
 	{
 		int rowSize=size+EXTRA_ROWS;
 		int colSize=size+EXTRA_COLS;
 		int i=0;
 		int j=0;
-		int k=0;
+		int full=0;
 		bool win=false;
+		bool row=false, col=false, rd=false, ld=false;
 
 		for(i=0; i<colSize-1; i++)
 		{
 			for(j=0; j<rowSize-1; j++)
 			{
-				win=checker (gameBoard, size, i, j);
+				row=checkRowWin (gameBoard, size, i, j);
+				col=checkColumnWin (gameBoard, size, i, j);
+				rd=checkRightDiagonal (gameBoard, size, i, j);
+				ld=checkLeftDiagonal (gameBoard, size, i, j);
+				if(row==true) win=row;
+				if(col==true) win=col;
+				if(rd==true) win=rd;
+				if(ld==true) win=ld;
 				if(win==true)
 				{
 					if(gameBoard[i][j]=='x')
@@ -177,57 +185,124 @@ game::game(void)
 						return true;
 					}
 				}
+				else if (win == false)
+				{
+					if(gameBoard[i][j] != ' ')
+					{
+						full++;
+						if(full==(rowSize*colSize))
+						{
+							cout<<"The board is full. This game is a tie.\n";
+							return true;
+						}
+					}
+				}
 			}
 		}
 		return false;
 	}
-	//bool game::checkColumnWin (char ** gameBoard, int size);
-	//bool game::checkRightDiagonalWin (char ** gameBoard, int size);
-	//bool game::checkLeftDiagonalWin (char ** gameBoard, int size);
-	//bool game::checkTie (char ** gameBoard, int size);
-	//void game::resetGameBoard (char ** gameBoard, int size);
-	bool game::checker(char ** gameBoard, int size, int x, int y)
+	bool game::checkRowWin (char ** gameBoard, int size, int x, int y)
+	{
+		int i=0;
+		int j=0;
+		//int rowSize=size+EXTRA_ROWS;
+		int colSize=size+EXTRA_COLS;
+
+		//If the space is occupied by a player
+		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
+		{
+			//Bounds check
+			if(y+size<=colSize)
+			{
+				j= 1;
+				//Check if there are "size" in a row
+				while(gameBoard[x][y]==gameBoard[x][y+j])
+				{
+					j++;
+				}
+				//Not enough in a row
+				if(j<size)
+				{
+					return false;
+				}
+				//Winner
+				else 
+				{
+					return true;
+				}
+			}			
+		return false;
+		}
+	}
+	bool game::checkColumnWin (char ** gameBoard, int size, int x, int y)
+	{
+		int i=0;
+		int j=0;
+		int rowSize=size+EXTRA_ROWS;
+		//int colSize=size+EXTRA_COLS;
+
+		//Check if space is occupied by player
+		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
+		{
+			//Bounds check
+			if(x+size<=rowSize)
+			{
+				i= 1;
+				//Check for "size" in a row
+				while(gameBoard[x][y]==gameBoard[x+i][y])
+				{
+					i++;
+				}
+				//Not enough in a row
+				if(i<size)
+				{
+					return false;
+				}
+				//winner
+				else 
+				{
+					return true;
+				}
+			}
+		}return false;		
+	}
+	bool game::checkRightDiagonalWin (char ** gameBoard, int size, int x, int y)
 	{
 		int i=0;
 		int j=0;
 		int rowSize=size+EXTRA_ROWS;
 		int colSize=size+EXTRA_COLS;
 
-		//Horizontal check
+		//Check if space is occupied by player
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
-
-			if(y+size<=colSize)
+			//Bounds check
+			if(x+size<=rowSize)
 			{
-				j= 1;
-				while(gameBoard[x][y]==gameBoard[x][y+j])
+				i= 1;
+				//Check for "size" in a row
+				while(gameBoard[x][y]==gameBoard[x+i][y])
 				{
-					j++;
+					i++;
 				}
-				if(j<size)
+				//Not enough in a row
+				if(i<size)
 				{
 					return false;
 				}
+				//winner
 				else 
 				{
 					return true;
 				}
 			}
-			//Vertical check
-			/*else if(x+size<=rowSize)
-			{
-			size+=1;
-				for(i=1; i<size; i++)
-				{
-					if(gameBoard[x][y]==gameBoard[x+i][y])
-					{
-						return true;
-					}
-				}
-			}*/
-		}
-		return false;
+		}return false;		
 	}
+	
+	//bool game::checkLeftDiagonalWin (char ** gameBoard, int size);
+	//bool game::checkTie (char ** gameBoard, int size);
+	//void game::resetGameBoard (char ** gameBoard, int size);
+	
 
 game::~game(void)
 {
