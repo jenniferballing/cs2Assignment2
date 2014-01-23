@@ -9,10 +9,9 @@ using namespace std;
 
 class game
 {
-	int connectionSize;
-	char** gameBoard;
 public:
 	game(void);
+	//Functions of power and inspiration
 	int getConnectionSize(void);
 	char** buildGameBoard (int size);
 	void displayBoard(char ** gameBoard, int size);
@@ -23,8 +22,7 @@ public:
 	bool checkColumnWin (char ** gameBoard, int size, int x, int y);
 	bool checkRightDiagonalWin (char ** gameBoard, int size, int x, int y);
 	bool checkLeftDiagonalWin (char ** gameBoard, int size, int x, int y);
-	//bool checkTie (char ** gameBoard, int size);
-	//void resetGameBoard (char ** gameBoard, int size);
+	void deleteGameBoard (char ** gameBoard, int size);
 	~game(void);
 };
 

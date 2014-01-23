@@ -3,6 +3,7 @@
 const int EXTRA_ROWS = 2;
 const int EXTRA_COLS = 3;
 
+//Function prototypes of pragmatic whimsy
 game::game(void)
 {
 }
@@ -35,6 +36,7 @@ game::game(void)
 		{
 			gameBoard[i]= new char [colSize];
 		}
+		//Initialize the board
 		for(j=0; j<=rowSize; j++)
 		{
 			for(k=0; k<=colSize; k++)
@@ -53,7 +55,7 @@ game::game(void)
 		int rowSize=size+EXTRA_ROWS;
 		int colSize=size+EXTRA_COLS;
 		
-		//Pretty stars
+		//Pretty pretty stars
 		for(l=0; l<colSize; l++)
 		{
 			cout<<"**";
@@ -67,7 +69,7 @@ game::game(void)
 		}
 		cout<< endl<<endl;
 
-		//gameBoard elements set to " " and place walls between them
+		//Places walls between gameBoard elements
 		for(i=0; i<rowSize; i++)
 		{
 			for(j=0; j<colSize; j++)
@@ -160,10 +162,14 @@ game::game(void)
 		bool win=false;
 		bool row=false, col=false, rd=false, ld=false;
 
-		for(i=0; i<rowSize-1; i++)
+		//Iterate through the board
+		for(i=0; i<rowSize; i++)
 		{
-			for(j=0; j<colSize-1; j++)
+			for(j=0; j<colSize; j++)
 			{
+				gameBoard[i][j];
+				
+				//Check for a win
 				row=checkRowWin (gameBoard, size, i, j);
 				col=checkColumnWin (gameBoard, size, i, j);
 				rd=checkRightDiagonalWin (gameBoard, size, i, j);
@@ -172,19 +178,24 @@ game::game(void)
 				if(col==true) win=col;
 				if(rd==true) win=rd;
 				if(ld==true) win=ld;
+				
+				//Determine who won
 				if(win==true)
 				{
 					if(gameBoard[i][j]=='x')
 					{
 						cout<<"Computer Wins!";
+						//deleteGameBoard(gameBoard, size);
 						return true;
 					}
 					else if (gameBoard[i][j]=='o')
 					{
 						cout<<"Player Wins!";
+						//deleteGameBoard(gameBoard, size);
 						return true;
 					}
 				}
+				//Check for a full board
 				else if (win == false)
 				{
 					if(gameBoard[i][j] != ' ')
@@ -205,7 +216,6 @@ game::game(void)
 	{
 		int i=0;
 		int j=0;
-		//int rowSize=size+EXTRA_ROWS;
 		int colSize=size+EXTRA_COLS;
 
 		//If the space is occupied by a player
@@ -238,8 +248,7 @@ game::game(void)
 		int i=0;
 		int j=0;
 		int rowSize=size+EXTRA_ROWS;
-		//int colSize=size+EXTRA_COLS;
-
+		
 		//Check if space is occupied by player
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
@@ -308,7 +317,7 @@ game::game(void)
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
 			//Bounds check
-			if(x+size<=rowSize && y-size>=colSize)
+			if(x+size<=rowSize && y-size>=0)
 			{
 				j=1;
 
@@ -330,8 +339,11 @@ game::game(void)
 			}
 		}return false;		
 	}
-	//bool game::checkTie (char ** gameBoard, int size);
-	//void game::resetGameBoard (char ** gameBoard, int size);
+	void game::deleteGameBoard (char ** gameBoard, int size)
+	{
+		delete gameBoard;
+		gameBoard=NULL;
+	}
 	
 
 game::~game(void)
