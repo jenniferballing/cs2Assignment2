@@ -17,10 +17,10 @@ void main ()
 	{
 		g1.playerMove(board, connectionSize);
 		g1.displayBoard(board, connectionSize);
-		winner=g1.checkRowWin(board, connectionSize);
+		winner=g1.checker(board, connectionSize);
 		g1.computerMove(board, connectionSize);
 		g1.displayBoard(board, connectionSize);
-		winner=g1.checkRowWin(board, connectionSize);
+		winner=g1.checker(board, connectionSize);
 	}
 	cin>>input;
 }

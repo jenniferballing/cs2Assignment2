@@ -166,8 +166,8 @@ game::game(void)
 			{
 				row=checkRowWin (gameBoard, size, i, j);
 				col=checkColumnWin (gameBoard, size, i, j);
-				rd=checkRightDiagonal (gameBoard, size, i, j);
-				ld=checkLeftDiagonal (gameBoard, size, i, j);
+				rd=checkRightDiagonalWin (gameBoard, size, i, j);
+				ld=checkLeftDiagonalWin (gameBoard, size, i, j);
 				if(row==true) win=row;
 				if(col==true) win=col;
 				if(rd==true) win=rd;
@@ -226,13 +226,12 @@ game::game(void)
 					return false;
 				}
 				//Winner
-				else 
+				else if(j==size)
 				{
 					return true;
 				}
 			}			
-		return false;
-		}
+		}return false;
 	}
 	bool game::checkColumnWin (char ** gameBoard, int size, int x, int y)
 	{
@@ -277,11 +276,11 @@ game::game(void)
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
 			//Bounds check
-			if(x+size<=rowSize)
+			if(x+size<=rowSize && y+size<=colSize)
 			{
 				i= 1;
 				//Check for "size" in a row
-				while(gameBoard[x][y]==gameBoard[x+i][y])
+				while(gameBoard[x][y]==gameBoard[x+i][y+i])
 				{
 					i++;
 				}
@@ -291,15 +290,46 @@ game::game(void)
 					return false;
 				}
 				//winner
-				else 
+				else if(i==size)
+				{
+					return true;
+				}
+			}
+		}return false;		
+	}	
+	bool game::checkLeftDiagonalWin (char ** gameBoard, int size, int x, int y)
+	{
+		
+		int i=0;
+		int j=0;
+		int rowSize=size+EXTRA_ROWS;
+		int colSize=size+EXTRA_COLS;
+
+		//Check if space is occupied by player
+		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
+		{
+			//Bounds check
+			if(x-size>=rowSize && y-size>=colSize)
+			{
+				i= size;
+				//Check for "size" in a row
+				while(gameBoard[x][y]==gameBoard[x-i][y-i])
+				{
+					i--;
+				}
+				//Not enough in a row
+				if(i>1)
+				{
+					return false;
+				}
+				//winner
+				else if(i==1)
 				{
 					return true;
 				}
 			}
 		}return false;		
 	}
-	
-	//bool game::checkLeftDiagonalWin (char ** gameBoard, int size);
 	//bool game::checkTie (char ** gameBoard, int size);
 	//void game::resetGameBoard (char ** gameBoard, int size);
 	
