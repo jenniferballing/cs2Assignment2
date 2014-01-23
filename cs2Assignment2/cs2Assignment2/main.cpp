@@ -1,6 +1,7 @@
 #include "game.h"
 
-//board display is not updating
+//Check for deletes and NULLS
+//Check only the most recent play
 void main ()
 {
 	int connectionSize;

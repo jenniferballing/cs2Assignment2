@@ -19,6 +19,7 @@ public:
 	void playerMove(char ** gameBoard, int size);
 	void computerMove (char ** gameBoard, int size);
 	bool checkRowWin (char ** gameBoard, int size);
+	bool checker(char ** gameBoard, int size, int x, int y);
 	//bool checkColumnWin (char ** gameBoard, int size);
 	//bool checkRightDiagonalWin (char ** gameBoard, int size);
 	//bool checkLeftDiagonalWin (char ** gameBoard, int size);

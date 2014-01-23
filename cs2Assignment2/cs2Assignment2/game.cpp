@@ -150,37 +150,26 @@ game::game(void)
 		int i=0;
 		int j=0;
 		int k=0;
+		bool win=false;
 
-		//Check through the rows and columns
-		for(i=0; i<rowSize-1; i++)
+		for(i=0; i<colSize-1; i++)
 		{
-			for(j=0; j<colSize-1; j++)
+			for(j=0; j<rowSize-1; j++)
 			{
-				//Check that the element holds a game piece
-				if(gameBoard[i][j]=='x'|| gameBoard[i][j]=='o')
+				win=checker (gameBoard, size, i, j);
+				if(win==true)
 				{
-					//Check that the range in on the board
-					if(gameBoard[i][j+(size-1)]<colSize-1)
-				{
-					//check for the right number in a row
-					for(k=0; k<size; k++)
+					if(gameBoard[i][j]=='x')
 					{
-						if(gameBoard[i+k][j]==gameBoard[i][j])
-						{
-							if(gameBoard[i][j]=='x')
-							{
-								cout<<"Computer Wins!";
-								return true;
-							}
-							else
-							{
-								cout<<"Player Wins!";
-								return true;
-							}
-						}
+						cout<<"Computer Wins!";
+						return true;
+					}
+					else if (gameBoard[i][j]=='o')
+					{
+						cout<<"Player Wins!";
+						return true;
 					}
 				}
-			}
 			}
 		}
 		return false;
@@ -190,6 +179,41 @@ game::game(void)
 	//bool game::checkLeftDiagonalWin (char ** gameBoard, int size);
 	//bool game::checkTie (char ** gameBoard, int size);
 	//void game::resetGameBoard (char ** gameBoard, int size);
+	bool game::checker(char ** gameBoard, int size, int x, int y)
+	{
+		int i=0;
+		int j=0;
+		int rowSize=size+EXTRA_ROWS;
+		int colSize=size+EXTRA_COLS;
+
+		//Horizontal check
+		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
+		{
+			if(y+size<=colSize)
+			{
+				for(j=1; j<size; j++)
+				{
+					if(gameBoard[x][y]==gameBoard[x][y+j] )//&& gameBoard[x][y]==gameBoard[x][y+j])
+					{
+						return true;
+					}
+				}
+			}
+			//Vertical check
+			/*else if(x+size<=rowSize)
+			{
+			size+=1;
+				for(i=1; i<size; i++)
+				{
+					if(gameBoard[x][y]==gameBoard[x+i][y])
+					{
+						return true;
+					}
+				}
+			}*/
+		}
+		return false;
+	}
 
 game::~game(void)
 {
