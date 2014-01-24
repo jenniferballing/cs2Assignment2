@@ -29,7 +29,7 @@ game::game(void)
 		int colSize=size+EXTRA_COLS;
 		
 		//Assign number of rows to gameBoard
-		char** gameBoard=new char* [rowSize];
+		char** gameBoard=new char* [rowSize-1];
 		
 		//Assign number of cols to gameBoard
 		for(i=0; i<colSize; i++)
@@ -38,9 +38,9 @@ game::game(void)
 		}
 
 		//Initialize the board
-		for(j=0; j<=rowSize; j++)
+		for(j=0; j<rowSize; j++)
 		{
-			for(k=0; k<=colSize; k++)
+			for(k=0; k<colSize; k++)
 			{
 				gameBoard[j][k]=' ';
 			}
