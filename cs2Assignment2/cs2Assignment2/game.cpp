@@ -29,10 +29,10 @@ game::game(void)
 		int colSize=size+EXTRA_COLS;
 		
 		//Assign number of rows to gameBoard
-		char** gameBoard=new char* [rowSize-1];
+		char** gameBoard=new char* [rowSize];
 		
 		//Assign number of cols to gameBoard
-		for(i=0; i<colSize; i++)
+		for(i=0; i<rowSize; i++)
 		{
 			gameBoard[i]= new char [colSize];
 		}
@@ -128,7 +128,42 @@ game::game(void)
 	}
 	void game::computerMove (char ** gameBoard, int size)
 	{
+		int i=0;
 		int rowSize=size+EXTRA_ROWS;
+		int colSize=size+EXTRA_COLS;
+		int columnChoice;
+		
+		//Instructions to user
+		cout<<"Player Move: Into which column would you like to drop your game piece?\n\n";
+		cin>>columnChoice;
+		
+		//Check for input out of bounds
+		while(columnChoice<1 || columnChoice>colSize)
+		{
+			cout<<"You have chosen an invalid number. Into which *valid* column would you like to drop your game piece?\n\n";
+			cin>>columnChoice;
+			cout<<endl;		
+		}
+		columnChoice--;
+
+		//Check for full column
+		while (gameBoard[0][columnChoice]=='x'|| gameBoard[0][columnChoice]=='o')
+		{
+			cout<<"There is no available space in this column. Please choose a different column.\n";
+			cin>>columnChoice;
+			columnChoice--;
+		}
+		
+		//Check availablity through the rows of columnChoice starting at the bottom
+		for(i=rowSize-1; i>=0; i--)
+		{
+			if(gameBoard[i][columnChoice]!='x' && gameBoard[i][columnChoice]!='o')
+			{
+				gameBoard[i][columnChoice]='x';
+				return;
+			}
+		}
+		/*int rowSize=size+EXTRA_ROWS;
 		int colSize=size+EXTRA_COLS;
 		int computerChoice=0;
 		int i=0;
@@ -153,7 +188,7 @@ game::game(void)
 				gameBoard[i][computerChoice]='x';
 				return;
 			}
-		}
+		}*/
 	}
 	bool game::checker(char ** gameBoard, int size)
 	{
@@ -297,7 +332,7 @@ game::game(void)
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
 			//Bounds check
-			if(x+size-1<rowSize && y+size<=colSize)
+			if(x+size-1<rowSize && y+size-1<colSize)
 			{
 				i= 1;
 				//Check for "size" in a row
@@ -326,6 +361,7 @@ game::game(void)
 	{
 		int i=0;
 		int j=0;
+		int k=0;
 		int rowSize=size+EXTRA_ROWS;
 		int colSize=size+EXTRA_COLS;
 
@@ -333,10 +369,10 @@ game::game(void)
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
 			//Bounds check
-			if(x+size-1<rowSize && y-size-1>0)
+			if(x+size-1<rowSize && y-(size-1)>=0)
 			{
+				//MOST RECENT CHANGE
 				j=1;
-
 				//Check for "size" in a row
 				while(gameBoard[x][y]==gameBoard[x+j][y-j])
 				{
@@ -352,7 +388,7 @@ game::game(void)
 					return false;
 				}
 				//winner
-				else if(j==size)
+				else
 				{
 					return true;
 				}
@@ -361,15 +397,15 @@ game::game(void)
 	}
 	void game::deleteGameBoard (char ** gameBoard, int size)
 	{
-		//int rowSize=size+EXTRA_ROWS;
-		int colSize=size+EXTRA_COLS;
+		int rowSize=size+EXTRA_ROWS;
+		//int colSize=size+EXTRA_COLS;
 		int i=0;
-		for(i =0; i<colSize-1; i++)
+		for(i =0; i<rowSize; i++)
 		{
-			//delete gameBoard[i];
+			delete[] gameBoard[i];
 			gameBoard[i]=NULL;	
 		}
-		//delete gameBoard;
+		delete [] gameBoard;
 		gameBoard=NULL;
 	}
 	

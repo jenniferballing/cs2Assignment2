@@ -3,7 +3,7 @@ CS2 Assignment 2 */
 
 #include "game.h"
 
-void main ()
+int main ()
 {
 	int connectionSize;
 	char** board;
@@ -42,4 +42,5 @@ void main ()
 	}
 	//Let my people go. (Emancipate the memory and set the board to NULL)
 	g1.deleteGameBoard(board, connectionSize);
-	}
+return 0;
+}
