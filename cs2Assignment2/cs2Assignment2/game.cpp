@@ -36,6 +36,7 @@ game::game(void)
 		{
 			gameBoard[i]= new char [colSize];
 		}
+
 		//Initialize the board
 		for(j=0; j<=rowSize; j++)
 		{
@@ -44,6 +45,7 @@ game::game(void)
 				gameBoard[j][k]=' ';
 			}
 		}
+		
 		return gameBoard;
 	}
 	void game::displayBoard(char ** gameBoard, int size)
@@ -111,6 +113,7 @@ game::game(void)
 		{
 			cout<<"There is no available space in this column. Please choose a different column.\n";
 			cin>>columnChoice;
+			columnChoice--;
 		}
 		
 		//Check availablity through the rows of columnChoice starting at the bottom
@@ -185,13 +188,13 @@ game::game(void)
 					if(gameBoard[i][j]=='x')
 					{
 						cout<<"Computer Wins!";
-						//deleteGameBoard(gameBoard, size);
+						
 						return true;
 					}
 					else if (gameBoard[i][j]=='o')
 					{
 						cout<<"Player Wins!";
-						//deleteGameBoard(gameBoard, size);
+						
 						return true;
 					}
 				}
@@ -218,17 +221,22 @@ game::game(void)
 		int j=0;
 		int colSize=size+EXTRA_COLS;
 
+
 		//If the space is occupied by a player
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
 			//Bounds check
-			if(y+size<=colSize)
+			if(y+size-1<colSize)
 			{
 				j= 1;
 				//Check if there are "size" in a row
 				while(gameBoard[x][y]==gameBoard[x][y+j])
 				{
 					j++;
+					if(i+x> colSize-1)
+					{
+						break;
+					}
 				}
 				//Not enough in a row
 				if(j<size)
@@ -253,13 +261,17 @@ game::game(void)
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
 			//Bounds check
-			if(x+size<=rowSize)
+			if(x+size-1<rowSize)
 			{
 				i= 1;
 				//Check for "size" in a row
 				while(gameBoard[x][y]==gameBoard[x+i][y])
 				{
 					i++;
+					if(i+x> rowSize-1)
+					{
+						break;
+					}
 				}
 				//Not enough in a row
 				if(i<size)
@@ -285,13 +297,17 @@ game::game(void)
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
 			//Bounds check
-			if(x+size<=rowSize && y+size<=colSize)
+			if(x+size-1<rowSize && y+size<=colSize)
 			{
 				i= 1;
 				//Check for "size" in a row
 				while(gameBoard[x][y]==gameBoard[x+i][y+i])
 				{
 					i++;
+					if(i+x> rowSize-1)
+					{
+						break;
+					}
 				}
 				//Not enough in a row
 				if(i<size)
@@ -305,7 +321,7 @@ game::game(void)
 				}
 			}
 		}return false;		
-	}	
+	}
 	bool game::checkLeftDiagonalWin (char ** gameBoard, int size, int x, int y)
 	{
 		int i=0;
@@ -317,7 +333,7 @@ game::game(void)
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
 			//Bounds check
-			if(x+size<=rowSize && y-size>=0)
+			if(x+size-1<rowSize && y-size-1>0)
 			{
 				j=1;
 
@@ -325,6 +341,10 @@ game::game(void)
 				while(gameBoard[x][y]==gameBoard[x+j][y-j])
 				{
 					j++;
+					if(j+x> rowSize-1)
+					{
+						break;
+					}
 				}
 				//Not enough in a row
 				if(j<size)
@@ -341,7 +361,15 @@ game::game(void)
 	}
 	void game::deleteGameBoard (char ** gameBoard, int size)
 	{
-		delete gameBoard;
+		//int rowSize=size+EXTRA_ROWS;
+		int colSize=size+EXTRA_COLS;
+		int i=0;
+		for(i =0; i<colSize-1; i++)
+		{
+			//delete gameBoard[i];
+			gameBoard[i]=NULL;	
+		}
+		//delete gameBoard;
 		gameBoard=NULL;
 	}
 	
