@@ -332,7 +332,7 @@ game::game(void)
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
 			//Bounds check
-			if(x+size<rowSize && y+size<colSize)
+			if(x+size-1<rowSize && y+size-1<colSize)
 			{
 				i= 1;
 				//Check for "size" in a row
@@ -369,7 +369,7 @@ game::game(void)
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
 			//Bounds check
-			if(x+size-1<=rowSize && y-(size-1)>=0)
+			if(x+size-1<rowSize && y-size+1>0)
 			{
 				//MOST RECENT CHANGE
 				j=1;
