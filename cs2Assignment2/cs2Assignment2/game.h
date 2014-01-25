@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAME_H
+#define GAME_H
 #include <iostream>
 #include <string>
 #include <cmath>
@@ -25,4 +26,5 @@ public:
 	void deleteGameBoard (char ** gameBoard, int size);
 	~game(void);
 };
+#endif
 
