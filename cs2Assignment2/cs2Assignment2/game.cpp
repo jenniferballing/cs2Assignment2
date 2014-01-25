@@ -93,7 +93,7 @@ game::game(void)
 		int i=0;
 		int rowSize=size+EXTRA_ROWS;
 		int colSize=size+EXTRA_COLS;
-		int columnChoice;
+		int columnChoice=0;
 		
 		//Instructions to user
 		cout<<"Player Move: Into which column would you like to drop your game piece?\n\n";
@@ -131,7 +131,7 @@ game::game(void)
 		int i=0;
 		int rowSize=size+EXTRA_ROWS;
 		int colSize=size+EXTRA_COLS;
-		int columnChoice;
+		int columnChoice=4;
 		
 		//Instructions to user
 		cout<<"Player Move: Into which column would you like to drop your game piece?\n\n";
@@ -408,8 +408,6 @@ game::game(void)
 		delete [] gameBoard;
 		gameBoard=NULL;
 	}
-	
-
 game::~game(void)
 {
 }
