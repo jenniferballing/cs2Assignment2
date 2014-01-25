@@ -323,23 +323,25 @@ game::game(void)
 	}
 	bool game::checkRightDiagonalWin (char ** gameBoard, int size, int x, int y)
 	{
+		int row=x;
+		int col=y;
 		int i=0;
 		int j=0;
 		int rowSize=size+EXTRA_ROWS;
 		int colSize=size+EXTRA_COLS;
 
 		//Check if space is occupied by player
-		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
+		if(gameBoard[row][col]=='o' || gameBoard[row][col]=='x')
 		{
 			//Bounds check
-			if(x+size-1<rowSize && y+size-1<colSize)
+			if(row+size-1<rowSize && col+size-1<colSize)
 			{
 				i= 1;
 				//Check for "size" in a row
-				while(gameBoard[x][y]==gameBoard[x+i][y+i])
+				while(gameBoard[row][col]==gameBoard[row+i][col+i])
 				{
 					i++;
-					if(i+x> rowSize-1)
+					if(i+row> rowSize-1 || i+col>colSize-1)
 					{
 						break;
 					}
@@ -350,7 +352,7 @@ game::game(void)
 					return false;
 				}
 				//winner
-				else if(i==size)
+				else
 				{
 					return true;
 				}
@@ -361,9 +363,7 @@ game::game(void)
 	{
 		int row=x;
 		int col=y;
-		int i=0;
 		int j=0;
-		int k=0;
 		int rowSize=size+EXTRA_ROWS;
 		int colSize=size+EXTRA_COLS;
 
