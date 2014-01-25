@@ -1,9 +1,10 @@
-#pragma once
 #include <iostream>
 #include <string>
 #include <cmath>
 #include <time.h>
 #include <stdlib.h>
+#ifndef GAME_H
+#define GAME_H
 
 using namespace std;
 
@@ -25,4 +26,5 @@ public:
 	void deleteGameBoard (char ** gameBoard, int size);
 	~game(void);
 };
+#endif
 
