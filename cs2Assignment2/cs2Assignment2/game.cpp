@@ -268,7 +268,7 @@ game::game(void)
 				while(gameBoard[x][y]==gameBoard[x][y+j])
 				{
 					j++;
-					if(i+x> colSize-1)
+					if(j+y> colSize-1)
 					{
 						break;
 					}
@@ -326,7 +326,6 @@ game::game(void)
 		int row=x;
 		int col=y;
 		int i=0;
-		int j=0;
 		int rowSize=size+EXTRA_ROWS;
 		int colSize=size+EXTRA_COLS;
 
