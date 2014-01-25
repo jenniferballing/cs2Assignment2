@@ -32,7 +32,7 @@ game::game(void)
 		char** gameBoard=new char* [rowSize];
 		
 		//Assign number of cols to gameBoard
-		for(i=0; i<rowSize; i++)
+		for(i=0; i<colSize; i++)
 		{
 			gameBoard[i]= new char [colSize];
 		}
@@ -106,15 +106,15 @@ game::game(void)
 			cin>>columnChoice;
 			cout<<endl;		
 		}
-		columnChoice--;
 
 		//Check for full column
 		while (gameBoard[0][columnChoice]=='x'|| gameBoard[0][columnChoice]=='o')
 		{
 			cout<<"There is no available space in this column. Please choose a different column.\n";
 			cin>>columnChoice;
-			columnChoice--;
+			//columnChoice--;
 		}
+		columnChoice--;
 		
 		//Check availablity through the rows of columnChoice starting at the bottom
 		for(i=rowSize-1; i>=0; i--)
@@ -332,7 +332,7 @@ game::game(void)
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
 			//Bounds check
-			if(x+size-1<rowSize && y+size-1<colSize)
+			if(x+size<rowSize && y+size<colSize)
 			{
 				i= 1;
 				//Check for "size" in a row
@@ -369,7 +369,7 @@ game::game(void)
 		if(gameBoard[x][y]=='o' || gameBoard[x][y]=='x')
 		{
 			//Bounds check
-			if(x+size-1<rowSize && y-size+1>0)
+			if(x+size<rowSize && y-size>=0)
 			{
 				//MOST RECENT CHANGE
 				j=1;
